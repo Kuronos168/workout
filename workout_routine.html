@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home Training Card</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EFF1ED;
+    --surface:#FFFFFF;
+    --ink:#15171C;
+    --muted:#5C616C;
+    --line:#DEE1DA;
+    --accent:#2545FF;
+    --accent-soft:#E7EBFF;
+    --rest-hard:#FFE7DF;
+    --rest-hard-ink:#B23A18;
+    --rest-mid:#FFF3D6;
+    --rest-mid-ink:#8A6A12;
+    --rest-core:#E2F0E9;
+    --rest-core-ink:#2E6B53;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif;
+    line-height:1.5;
+    padding:24px 16px 80px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:640px;margin:0 auto}
+
+  /* ---- Header ---- */
+  header{margin-bottom:22px}
+  .eyebrow{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:500;font-size:.72rem;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--muted);
+  }
+  h1{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;font-size:2rem;line-height:1.05;
+    letter-spacing:-.02em;margin:4px 0 2px;
+  }
+  .today-line{font-size:.92rem;color:var(--muted)}
+  .today-line b{color:var(--accent);font-weight:600}
+
+  /* ---- Week strip ---- */
+  .week{
+    display:grid;grid-template-columns:repeat(7,1fr);
+    gap:6px;margin:18px 0 26px;
+  }
+  .day{
+    background:var(--surface);border:1px solid var(--line);
+    border-radius:10px;padding:9px 4px;text-align:center;
+    cursor:pointer;transition:transform .12s ease,border-color .12s ease;
+  }
+  .day:hover{border-color:var(--accent)}
+  .day .dow{
+    font-family:'Space Grotesk',sans-serif;font-weight:600;
+    font-size:.72rem;letter-spacing:.04em;color:var(--muted);
+  }
+  .day .typ{font-size:.66rem;font-weight:600;margin-top:3px;color:var(--ink)}
+  .day.rest .typ{color:var(--muted)}
+  .day.is-today{
+    background:var(--accent);border-color:var(--accent);
+    box-shadow:0 6px 18px -6px rgba(37,69,255,.55);
+  }
+  .day.is-today .dow,.day.is-today .typ{color:#fff}
+
+  /* ---- Warmup banner ---- */
+  .warmup{
+    background:var(--surface);border:1px solid var(--line);
+    border-left:4px solid var(--accent);
+    border-radius:var(--radius);padding:14px 16px;margin-bottom:14px;
+  }
+  .warmup h3{
+    font-family:'Space Grotesk',sans-serif;font-size:.8rem;
+    letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;
+  }
+  .warmup p{font-size:.9rem;color:var(--muted)}
+
+  /* ---- Workout cards ---- */
+  .card{
+    background:var(--surface);border:1px solid var(--line);
+    border-radius:var(--radius);padding:18px 16px;margin-bottom:14px;
+    scroll-margin-top:14px;
+  }
+  .card.active{border-color:var(--accent);box-shadow:0 8px 26px -12px rgba(37,69,255,.4)}
+  .card-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:14px}
+  .card-head h2{
+    font-family:'Space Grotesk',sans-serif;font-weight:700;
+    font-size:1.45rem;letter-spacing:-.01em;
+  }
+  .card-head .sub{font-size:.74rem;color:var(--muted);text-align:right}
+  .badge-today{
+    display:inline-block;background:var(--accent);color:#fff;
+    font-family:'Space Grotesk',sans-serif;font-weight:600;
+    font-size:.6rem;letter-spacing:.12em;padding:3px 8px;border-radius:99px;
+    vertical-align:middle;margin-left:8px;
+  }
+
+  .block{margin-bottom:16px}
+  .block:last-child{margin-bottom:0}
+  .block-label{
+    font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:.78rem;
+    letter-spacing:.06em;text-transform:uppercase;color:var(--accent);
+    display:flex;align-items:center;gap:8px;margin-bottom:8px;
+  }
+  .block-label .rounds{color:var(--muted);font-weight:500;letter-spacing:.02em;text-transform:none}
+
+  ul{list-style:none}
+  li.ex{
+    display:flex;align-items:flex-start;gap:11px;
+    padding:9px 0;border-bottom:1px dashed var(--line);cursor:pointer;
+  }
+  li.ex:last-child{border-bottom:none}
+  .check{
+    flex:0 0 20px;width:20px;height:20px;margin-top:1px;border-radius:6px;
+    border:2px solid var(--line);position:relative;transition:.12s;
+  }
+  li.ex.done .check{background:var(--accent);border-color:var(--accent)}
+  li.ex.done .check::after{
+    content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;
+    border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg);
+  }
+  .ex-body{flex:1}
+  .ex-name{font-weight:500;font-size:.95rem}
+  li.ex.done .ex-name{text-decoration:line-through;color:var(--muted)}
+  .ex-meta{font-size:.8rem;color:var(--muted);margin-top:1px}
+
+  .rest{
+    display:inline-block;font-family:'Space Grotesk',sans-serif;font-weight:600;
+    font-size:.7rem;padding:4px 9px;border-radius:99px;margin-top:8px;
+  }
+  .rest.hard{background:var(--rest-hard);color:var(--rest-hard-ink)}
+  .rest.mid{background:var(--rest-mid);color:var(--rest-mid-ink)}
+  .rest.core{background:var(--rest-core);color:var(--rest-core-ink)}
+
+  /* ---- Rest day ---- */
+  .restday{
+    background:var(--surface);border:1px dashed var(--line);
+    border-radius:var(--radius);padding:18px 16px;margin-bottom:14px;text-align:center;
+  }
+  .restday h2{font-family:'Space Grotesk',sans-serif;font-size:1.2rem;margin-bottom:4px}
+  .restday p{font-size:.88rem;color:var(--muted)}
+
+  /* ---- Footer notes ---- */
+  .notes{margin-top:24px}
+  .legend{
+    display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;
+  }
+  .legend .rest{margin-top:0}
+  .progress-note{
+    background:var(--surface);border:1px solid var(--line);
+    border-radius:var(--radius);padding:14px 16px;font-size:.86rem;color:var(--muted);
+  }
+  .progress-note b{color:var(--ink);font-family:'Space Grotesk',sans-serif}
+  .progress-note .chain{color:var(--accent);font-weight:600}
+
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Home Training · Push / Pull / Legs</div>
+    <h1>Training Card</h1>
+    <p class="today-line" id="todayLine">Today is <b id="todayName">—</b></p>
+  </header>
+
+  <!-- Week strip -->
+  <div class="week" id="weekStrip"></div>
+
+  <!-- Warm-up (every session) -->
+  <div class="warmup">
+    <h3>Warm-up · every session · 3 min</h3>
+    <p>Arm circles · leg swings · 20 bodyweight squats · 30s jog in place</p>
+  </div>
+
+  <!-- PUSH -->
+  <section class="card" id="card-push" data-type="Push">
+    <div class="card-head">
+      <h2>Push<span class="badge-today" data-badge="Push" hidden>Today</span></h2>
+      <div class="sub">chest · shoulders<br>triceps · ~24 min</div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Superset A <span class="rounds">· 4 rounds</span></div>
+      <ul>
+        <li class="ex"><span class="check"></span><div class="ex-body"><div class="ex-name">Push-ups</div><div class="ex-meta">to ~2 reps short of failure</div></div></li>
+        <li class="ex"><span class="check"></span><div class="ex-body"><div class="ex-name">Plank</div><div class="ex-meta">30–45s hold</div></div></li>
+      </ul>
+      <span class="rest hard">Rest 60–90s after each round</span>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Superset B <span class="rounds">· 3 rounds</span></div>
+      <ul>
+        <li class="ex"><span class="check"></span><div class="ex-body"><div class="ex-name">Pike push-ups</div><div class="ex-meta">8–12 reps</div></div></li>
+        <li class="ex"><span class="check"></span><div class="ex-body"><div class="ex-name">Hollow hold</div><div class="ex-meta">20–30s</div></div></li>
+      </ul>
+      <span class="rest hard">Rest 60–90s after each round</span>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Triceps finisher</div>
+      <ul>
+        <li class="ex"><span class="check"></span><div class="ex-body"><div class="ex-name">Chair dips</div><div class="ex-meta">3 sets</div></div></li>
+        <li class="ex"><span class="check"></span><div class="ex-body"><div class="ex-name">Diamond push-ups</div><div class="ex-meta">2 sets</div></div></li>
+      </ul>
+      <span class="rest mid">Rest 45–60s between sets</span>
+    </div>
+  </section>
+
+  <!-- PULL -->
+  <section class="card" id="card-pull" data-type="Pull">
+    <div class="card-head">
+      <h2>Pull<span class="badge-today" data-badge="Pull" hidden>Today</span></h2>
+      <div class="sub">back · biceps<br>rear delts · ~24 min</div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Superset A <span class="rounds">· 4 rounds</span></div>
+      <ul>
+        <li class="ex"><span class="check"></span><div class="ex-body"><div class="ex-name">Pull-ups</div><div class="ex-meta">band-assisted, or inverted rows under a table · to ~2 short of failure</div></div></li>
+        <li class="ex"><span class="check"></span><div class="ex-body"><div class="ex-name">Superman hold</div><div class="ex-meta">20s</div></div></li>
+      </ul>
+      <span class="rest hard">Rest 60–90s after each round</span>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Superset B <span class="rounds">· 3 rounds</span></div>
+      <ul>
+        <li class="ex"><span class="check"></span><div class="ex-body"><div class="ex-name">Inverted rows</div><div class="ex-meta">10–15 reps</div></div></li>
+        <li class="ex"><span class="check"></span><div class="ex-body"><div class="ex-name">Hollow hold</div><div class="ex-meta">20–30s</div></div></li>
+      </ul>
+      <span class="rest hard">Rest 60–90s after each round</span>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Biceps finisher</div>
+      <ul>
+        <li class="ex"><span class="check"></span><div class="ex-body"><div class="ex-name">Backpack or band curls</div><div class="ex-meta">3 sets</div></div></li>
+      </ul>
+      <span class="rest mid">Rest 45–60s between sets</span>
+    </div>
+  </section>
+
+  <!-- LEGS -->
+  <section class="card" id="card-legs" data-type="Legs">
+    <div class="card-head">
+      <h2>Legs<span class="badge-today" data-badge="Legs" hidden>Today</span></h2>
+      <div class="sub">quads · hams<br>glutes · calves · ~24 min</div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Superset A <span class="rounds">· 4 rounds each leg</span></div>
+      <ul>
+        <li class="ex"><span class="check"></span><div class="ex-body"><div class="ex-name">Bulgarian split squats</div><div class="ex-meta">back foot on chair · 8–12 each leg</div></div></li>
+        <li class="ex"><span class="check"></span><div class="ex-body"><div class="ex-name">Single-leg calf raises</div><div class="ex-meta">12–15 each leg</div></div></li>
+      </ul>
+      <span class="rest hard">Rest 60–90s after each round</span>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Superset B <span class="rounds">· 3 rounds</span></div>
+      <ul>
+        <li class="ex"><span class="check"></span><div class="ex-body"><div class="ex-name">Reverse lunges</div><div class="ex-meta">10–12 each leg</div></div></li>
+        <li class="ex"><span class="check"></span><div class="ex-body"><div class="ex-name">Single-leg glute bridges</div><div class="ex-meta">12 each leg</div></div></li>
+      </ul>
+      <span class="rest mid">Rest 45–60s after each round</span>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Core finisher</div>
+      <ul>
+        <li class="ex"><span class="check"></span><div class="ex-body"><div class="ex-name">Hanging or lying leg raises</div><div class="ex-meta">3 × 12–15</div></div></li>
+      </ul>
+      <span class="rest core">Rest 30–45s between sets</span>
+    </div>
+  </section>
+
+  <!-- REST DAY -->
+  <section class="restday" id="card-rest" data-type="Rest">
+    <h2>Rest Day<span class="badge-today" data-badge="Rest" hidden>Today</span></h2>
+    <p>Full rest. Walk, stretch, sleep well. No session — recovery is when the muscle is actually built.</p>
+  </section>
+
+  <!-- Notes -->
+  <div class="notes">
+    <div class="legend">
+      <span class="rest hard">60–90s · main movements</span>
+      <span class="rest mid">45–60s · secondary</span>
+      <span class="rest core">30–45s · core / isolation</span>
+    </div>
+    <div class="progress-note">
+      <b>Make it harder when it gets easy.</b><br>
+      Move up this chain only when you hit the top of the rep range cleanly:
+      <span class="chain">more reps → slower tempo (3s down) → harder variation → add a weighted backpack.</span>
+      Log the number each session so progress is real, not a guess.
+    </div>
+  </div>
+</div>
+
+<script>
+  const TYPES = ["Legs","Push","Pull","Legs","Rest","Push","Pull"]; // Sun..Sat
+  const DOW   = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+  const FULL  = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+  const todayIdx = new Date().getDay();
+  const todayType = TYPES[todayIdx];
+
+  // Header
+  document.getElementById("todayName").textContent = FULL[todayIdx] + " — " + todayType;
+
+  // Build week strip
+  const strip = document.getElementById("weekStrip");
+  // Reorder Mon-first for readability
+  const order = [1,2,3,4,5,6,0];
+  order.forEach(i=>{
+    const d = document.createElement("div");
+    d.className = "day" + (TYPES[i]==="Rest"?" rest":"") + (i===todayIdx?" is-today":"");
+    d.innerHTML = `<div class="dow">${DOW[i]}</div><div class="typ">${TYPES[i]}</div>`;
+    d.addEventListener("click", ()=>{
+      const target = document.querySelector(`[data-type="${TYPES[i]}"]`);
+      if(target) target.scrollIntoView({behavior:"smooth",block:"start"});
+    });
+    strip.appendChild(d);
+  });
+
+  // Highlight today's card + show badge
+  const activeCard = document.querySelector(`.card[data-type="${todayType}"]`);
+  if(activeCard) activeCard.classList.add("active");
+  const badge = document.querySelector(`[data-badge="${todayType}"]`);
+  if(badge) badge.hidden = false;
+
+  // Tap to check off (resets each time the page is opened — fresh per session)
+  document.querySelectorAll("li.ex").forEach(li=>{
+    li.addEventListener("click", ()=> li.classList.toggle("done"));
+  });
+</script>
+</body>
+</html>
