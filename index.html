@@ -193,7 +193,7 @@
     <div class="block">
       <div class="block-label">Superset A <span class="rounds">· 4 rounds</span></div>
       <ul>
-        <li class="ex"><span class="check"></span><div class="ex-body"><div class="ex-name">Push-ups</div><div class="ex-meta">to ~2 reps short of failure</div></div></li>
+        <li class="ex"><span class="check"></span><div class="ex-body"><div class="ex-name">Push-ups</div><div class="ex-meta">hands wider than shoulders, elbows flare ~45° · to ~2 reps short of failure</div></div></li>
         <li class="ex"><span class="check"></span><div class="ex-body"><div class="ex-name">Plank</div><div class="ex-meta">30–45s hold</div></div></li>
       </ul>
       <span class="rest hard">Rest 60–90s after each round</span>
@@ -203,7 +203,7 @@
       <div class="block-label">Superset B <span class="rounds">· 3 rounds</span></div>
       <ul>
         <li class="ex"><span class="check"></span><div class="ex-body"><div class="ex-name">Pike push-ups</div><div class="ex-meta">8–12 reps</div></div></li>
-        <li class="ex"><span class="check"></span><div class="ex-body"><div class="ex-name">Hollow hold</div><div class="ex-meta">20–30s</div></div></li>
+        <li class="ex"><span class="check"></span><div class="ex-body"><div class="ex-name">Plank</div><div class="ex-meta">30–45s · hips level, don't let them sag</div></div></li>
       </ul>
       <span class="rest hard">Rest 60–90s after each round</span>
     </div>
@@ -212,7 +212,7 @@
       <div class="block-label">Triceps finisher</div>
       <ul>
         <li class="ex"><span class="check"></span><div class="ex-body"><div class="ex-name">Chair dips</div><div class="ex-meta">3 sets</div></div></li>
-        <li class="ex"><span class="check"></span><div class="ex-body"><div class="ex-name">Diamond push-ups</div><div class="ex-meta">2 sets</div></div></li>
+        <li class="ex"><span class="check"></span><div class="ex-body"><div class="ex-name">Diamond push-ups</div><div class="ex-meta">2 sets · optional — cut these if triceps stay sore &amp; chest doesn't</div></div></li>
       </ul>
       <span class="rest mid">Rest 45–60s between sets</span>
     </div>
@@ -238,7 +238,7 @@
       <div class="block-label">Superset B <span class="rounds">· 3 rounds</span></div>
       <ul>
         <li class="ex"><span class="check"></span><div class="ex-body"><div class="ex-name">Inverted rows</div><div class="ex-meta">10–15 reps</div></div></li>
-        <li class="ex"><span class="check"></span><div class="ex-body"><div class="ex-name">Hollow hold</div><div class="ex-meta">20–30s</div></div></li>
+        <li class="ex"><span class="check"></span><div class="ex-body"><div class="ex-name">Hollow hold</div><div class="ex-meta">20–30s · knees bent, lower back pressed flat to floor</div></div></li>
       </ul>
       <span class="rest hard">Rest 60–90s after each round</span>
     </div>
@@ -286,6 +286,41 @@
     </div>
   </section>
 
+  <!-- UPPER -->
+  <section class="card" id="card-upper" data-type="Upper">
+    <div class="card-head">
+      <h2>Upper<span class="badge-today" data-badge="Upper" hidden>Today</span></h2>
+      <div class="sub">chest · back · shoulders<br>arms · ~22 min</div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Superset A <span class="rounds">· 3 rounds</span></div>
+      <ul>
+        <li class="ex"><span class="check"></span><div class="ex-body"><div class="ex-name">Push-ups</div><div class="ex-meta">hands wider than shoulders · to ~2 reps short of failure</div></div></li>
+        <li class="ex"><span class="check"></span><div class="ex-body"><div class="ex-name">Pull-ups / inverted rows</div><div class="ex-meta">to ~2 reps short of failure</div></div></li>
+      </ul>
+      <span class="rest hard">Rest 60–90s after each round</span>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Superset B <span class="rounds">· 3 rounds</span></div>
+      <ul>
+        <li class="ex"><span class="check"></span><div class="ex-body"><div class="ex-name">Pike push-ups</div><div class="ex-meta">shoulders · 8–12 reps</div></div></li>
+        <li class="ex"><span class="check"></span><div class="ex-body"><div class="ex-name">Backpack or band curls</div><div class="ex-meta">biceps · 10–15 reps</div></div></li>
+      </ul>
+      <span class="rest hard">Rest 60–90s after each round</span>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Finisher <span class="rounds">· 3 rounds</span></div>
+      <ul>
+        <li class="ex"><span class="check"></span><div class="ex-body"><div class="ex-name">Chair dips</div><div class="ex-meta">triceps · 8–12 reps</div></div></li>
+        <li class="ex"><span class="check"></span><div class="ex-body"><div class="ex-name">Plank</div><div class="ex-meta">30–45s · hips level</div></div></li>
+      </ul>
+      <span class="rest mid">Rest 45–60s after each round</span>
+    </div>
+  </section>
+
   <!-- REST DAY -->
   <section class="restday" id="card-rest" data-type="Rest">
     <h2>Rest Day<span class="badge-today" data-badge="Rest" hidden>Today</span></h2>
@@ -309,7 +344,7 @@
 </div>
 
 <script>
-  const TYPES = ["Rest","Push","Pull","Legs","Push","Pull","Legs"]; // Sun..Sat
+  const TYPES = ["Rest","Push","Pull","Rest","Legs","Upper","Rest"]; // Sun..Sat
   const DOW   = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
   const FULL  = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
   const todayIdx = new Date().getDay();
